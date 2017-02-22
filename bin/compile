@@ -43,7 +43,7 @@ if [ -f "$rm_file" ]; then
 
 		if [ "$p" != "$BUILD_DIR/" ]; then
 			echo "Removing [$p]"
-			rm -vrf "$p"
+			rm -rf "$p"
 		fi;
 	done;
 fi;
