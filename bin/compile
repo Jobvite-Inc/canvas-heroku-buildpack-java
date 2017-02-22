@@ -32,3 +32,20 @@ if has_maven_wrapper $BUILD_DIR; then
   cache_copy ".m2/wrapper" $BUILD_DIR $CACHE_DIR
   rm -rf $BUILD_DIR/.m2
 fi
+
+# cleanup things we don't care about after build
+set -x
+rm_file=$BUILD_DIR/remove-after-build.txt
+
+if [ -f "$rm_file" ]; then
+	for f in $(cat $rm_file); do
+		p="$BUILD_DIR/$f"
+
+		if [ "$p" != "$BUILD_DIR/" ]; then
+			echo "Removing [$p]"
+			rm -vrf "$p"
+		fi;
+	done;
+fi;
+
+set +x
