@@ -50,7 +50,7 @@ fi;
 
 # download newrelic java agent
 echo "Downloading newrelic agent jar";
-nrd=/app/newrelic
+nrd=./newrelic
 mkdir -p $nrd
 wget http://download.newrelic.com/newrelic/java-agent/newrelic-agent/3.36.0/newrelic-agent-3.36.0.jar -O $nrd/newrelic.jar 
 echo ".. done with newrelic agent jar";
