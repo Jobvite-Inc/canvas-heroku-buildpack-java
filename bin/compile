@@ -32,7 +32,9 @@ echo "inserting build source version into all application.property files...";
 files=$(find $BUILD_DIR -name application.properties | grep -v target/);
 for f in $files; do
 	echo "updating $f";
-	echo "info.app.githash=$SOURCE_VERSION" >> $f
+	echo "
+info.app.githash=$SOURCE_VERSION
+" >> $f
 done;
 set +x
 
