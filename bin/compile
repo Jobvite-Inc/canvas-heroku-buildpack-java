@@ -56,8 +56,10 @@ if [ -f "$rm_file" ]; then
 		p="./$f"
 
 		if [ "$p" != "./" ]; then
-			echo "Removing [$p]"
-			rm -rf "$p"
+			if [ -e "$p" ]; then
+			    echo "Removing [$p]"
+			    rm -rf "$p"
+			fi;
 		fi;
 	done;
 fi;
