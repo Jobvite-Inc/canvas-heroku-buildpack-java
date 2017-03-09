@@ -26,6 +26,14 @@ install_java_with_overlay ${BUILD_DIR}
 #create the cache dir if it doesn't exist
 mkdir -p $CACHE_DIR
 
+# CUSTOMIZED HERE
+set -x
+echo "inserting build source version into all application.property files..."
+for f $(find . -name application.properties | grep -v target/); do
+	echo "info.app.githash=$SOURCE_VERSION" >> $f
+done;
+set +x
+
 run_mvn "compile" $BUILD_DIR $CACHE_DIR
 
 if has_maven_wrapper $BUILD_DIR; then
@@ -57,6 +65,7 @@ nrd=./newrelic
 mkdir -p $nrd
 wget -q http://download.newrelic.com/newrelic/java-agent/newrelic-agent/3.36.0/newrelic-agent-3.36.0.jar -O $nrd/newrelic.jar 
 echo ".. done with newrelic agent jar";
+
 
 # back to the proper parent
 cd ../
