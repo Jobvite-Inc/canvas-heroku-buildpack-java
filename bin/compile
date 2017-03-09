@@ -29,7 +29,9 @@ mkdir -p $CACHE_DIR
 # CUSTOMIZED HERE
 set -x
 echo "inserting build source version into all application.property files...";
-for f in $(find . -name application.properties | grep -v target/); do
+files=$(find . -name application.properties | grep -v target/);
+for f in $files; do
+	echo "updating $f";
 	echo "info.app.githash=$SOURCE_VERSION" >> $f
 done;
 set +x
@@ -45,14 +47,15 @@ fi
 echo "Starting custom cleanup steps"
 set -x
 # switch to canvasapp directory to do cleanup
-cd canvasapp;
-rm_file=$BUILD_DIR/canvasapp/remove-after-build.txt
+p=$PWD
+cd $BUILD_DIR/canvasapp;
+rm_file=./remove-after-build.txt
 
 if [ -f "$rm_file" ]; then
 	for f in $(cat $rm_file); do
-		p="$BUILD_DIR/$f"
+		p="./$f"
 
-		if [ "$p" != "$BUILD_DIR/" ]; then
+		if [ "$p" != "./" ]; then
 			echo "Removing [$p]"
 			rm -rf "$p"
 		fi;
@@ -68,5 +71,5 @@ echo ".. done with newrelic agent jar";
 
 
 # back to the proper parent
-cd ../
+cd $p
 set +x
