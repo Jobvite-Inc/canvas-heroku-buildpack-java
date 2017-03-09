@@ -34,8 +34,11 @@ if has_maven_wrapper $BUILD_DIR; then
 fi
 
 # cleanup things we don't care about after build
+echo "Starting custom cleanup steps"
 set -x
-rm_file=$BUILD_DIR/remove-after-build.txt
+# switch to canvasapp directory to do cleanup
+cd canvasapp;
+rm_file=$BUILD_DIR/canvasapp/remove-after-build.txt
 
 if [ -f "$rm_file" ]; then
 	for f in $(cat $rm_file); do
@@ -52,7 +55,9 @@ fi;
 echo "Downloading newrelic agent jar";
 nrd=./newrelic
 mkdir -p $nrd
-wget http://download.newrelic.com/newrelic/java-agent/newrelic-agent/3.36.0/newrelic-agent-3.36.0.jar -O $nrd/newrelic.jar 
+wget -q http://download.newrelic.com/newrelic/java-agent/newrelic-agent/3.36.0/newrelic-agent-3.36.0.jar -O $nrd/newrelic.jar 
 echo ".. done with newrelic agent jar";
 
+# back to the proper parent
+cd ../
 set +x
