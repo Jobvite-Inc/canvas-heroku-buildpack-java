@@ -47,7 +47,7 @@ fi
 echo "Starting custom cleanup steps"
 set -x
 # switch to canvasapp directory to do cleanup
-p=$PWD
+old_dir=$PWD
 cd $BUILD_DIR/canvasapp;
 rm_file=./remove-after-build.txt
 
@@ -73,5 +73,5 @@ echo ".. done with newrelic agent jar";
 
 
 # back to the proper parent
-cd $p
+cd $old_dir
 set +x
