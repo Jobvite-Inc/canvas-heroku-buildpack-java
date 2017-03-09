@@ -28,8 +28,8 @@ mkdir -p $CACHE_DIR
 
 # CUSTOMIZED HERE
 set -x
-echo "inserting build source version into all application.property files..."
-for f $(find . -name application.properties | grep -v target/); do
+echo "inserting build source version into all application.property files...";
+for f in $(find . -name application.properties | grep -v target/); do
 	echo "info.app.githash=$SOURCE_VERSION" >> $f
 done;
 set +x
