@@ -29,11 +29,13 @@ mkdir -p $CACHE_DIR
 # CUSTOMIZED HERE
 set -x
 echo "inserting build source version into all application.property files...";
+now=$(date +'%Y-%m-%dT%H:%M:%S%z')
 files=$(find $BUILD_DIR -name application.properties | grep -v target/);
 for f in $files; do
 	echo "updating $f";
 	echo "
 build.source.version=$SOURCE_VERSION
+build.timestamp=$now
 " >> $f
 done;
 set +x
