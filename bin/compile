@@ -72,7 +72,8 @@ fi;
 echo "Downloading newrelic agent jar";
 nrd=./newrelic
 mkdir -p $nrd
-wget -q http://download.newrelic.com/newrelic/java-agent/newrelic-agent/3.36.0/newrelic-agent-3.36.0.jar -O $nrd/newrelic.jar 
+#wget -q http://download.newrelic.com/newrelic/java-agent/newrelic-agent/3.36.0/newrelic-agent-3.36.0.jar -O $nrd/newrelic.jar 
+wget -q http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-agent.jar -O $nrd/newrelic.jar 
 echo ".. done with newrelic agent jar";
 
 
