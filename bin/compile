@@ -61,6 +61,10 @@ if [ -f "$rm_file" ]; then
 	done;
 fi;
 
+echo "Sizes of over:"
+du -hs ../*
+du -hs *
+
 # download newrelic java agent
 echo "Downloading newrelic agent jar";
 nrd=./newrelic
