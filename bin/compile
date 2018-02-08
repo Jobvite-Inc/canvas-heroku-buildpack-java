@@ -19,7 +19,7 @@ export_env $ENV_DIR "." "JAVA_OPTS|JAVA_TOOL_OPTIONS"
 
 install_jdk ${BUILD_DIR}
 
-# CUSTOMIZED HERE
+# CUSTOMIZED START
 set -x
 echo "inserting build source version into all application.property files...";
 now=$(date +'%Y-%m-%dT%H:%M:%S%z')
@@ -32,6 +32,10 @@ build.timestamp=$now
 " >> $f
 done;
 set +x
+# END CUSTOMIZED
+
+[ -n "$(find ${BUILD_DIR} -type f -name "*.kt")" ] && mcount "kotlin.source"
+[ -n "$(find ${BUILD_DIR} -type f -name "*.groovy")" ] && mcount "groovy.source"
 
 run_mvn "compile" $BUILD_DIR $CACHE_DIR
 
@@ -40,6 +44,7 @@ if has_maven_wrapper $BUILD_DIR; then
   rm -rf $BUILD_DIR/.m2
 fi
 
+# CUSTOMIZED START
 # cleanup things we don't care about after build
 echo "Starting custom cleanup steps"
 set -x
@@ -61,7 +66,7 @@ if [ -f "$rm_file" ]; then
 	done;
 fi;
 
-echo "Sizes of over:"
+echo "Sizes if over:"
 du -hs ../*
 du -hs *
 
@@ -77,3 +82,4 @@ echo ".. done with newrelic agent jar";
 # back to the proper parent
 cd $old_dir
 set +x
+# END CUSTOMIZED

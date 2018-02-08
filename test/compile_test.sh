@@ -130,7 +130,7 @@ testCompileWithoutSystemProperties() {
   assertCapturedSuccess
 
   _assertMavenLatest
-  assertCaptured "Installing OpenJDK 1.8"
+  assertCaptured "Installing JDK 1.8"
   assertTrue "Java should be present in runtime." "[ -d ${BUILD_DIR}/.jdk ]"
   assertTrue "Java version file should be present." "[ -f ${BUILD_DIR}/.jdk/version ]"
 }
@@ -208,7 +208,6 @@ testCustomSettingsXmlWithUrl()
   compile
 
   assertCapturedSuccess
-  assertCaptured "Installing settings.xml"
   assertCaptured "Should download from JBoss" "Downloading: http://repository.jboss.org/nexus/content/groups/public"
 
   unset MAVEN_SETTINGS_URL
