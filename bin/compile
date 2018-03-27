@@ -82,4 +82,13 @@ echo ".. done with newrelic agent jar";
 # back to the proper parent
 cd $old_dir
 set +x
+
+# allow one last pre-finish hook
+$_pre_finish='./heroku-build-hook.sh'
+if [ -f "$_pre_finish" ]; then
+    echo "Detected [$_pre_finish]. Running:"
+    . $_pre_finish;
+    echo "Finished with [$_pre_finish]"
+fi;
 # END CUSTOMIZED
+
