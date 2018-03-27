@@ -80,7 +80,7 @@ echo ".. done with newrelic agent jar";
 
 
 # allow one last pre-finish hook
-$_pre_finish='./heroku-build-hook.sh'
+_pre_finish='./heroku-build-hook.sh'
 if [ -f "$_pre_finish" ]; then
     echo "Detected [$_pre_finish]. Running:"
     . $_pre_finish;
