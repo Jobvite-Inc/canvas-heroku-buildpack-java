@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+e!/usr/bin/env bash
 # bin/compile <build-dir> <cache-dir> <env-dir>
 
 # fail fast
@@ -79,10 +79,6 @@ wget -q http://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/
 echo ".. done with newrelic agent jar";
 
 
-# back to the proper parent
-cd $old_dir
-set +x
-
 # allow one last pre-finish hook
 $_pre_finish='./heroku-build-hook.sh'
 if [ -f "$_pre_finish" ]; then
@@ -90,5 +86,10 @@ if [ -f "$_pre_finish" ]; then
     . $_pre_finish;
     echo "Finished with [$_pre_finish]"
 fi;
+
+# back to the proper parent
+cd $old_dir
+set +x
+
 # END CUSTOMIZED
 
