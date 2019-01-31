@@ -5,8 +5,14 @@
 
 capture_test()
 {
-  . $BUILD_DIR/.profile.d/maven.sh
-  capture ${BUILDPACK_HOME}/bin/test ${BUILD_DIR} ${CACHE_DIR} ${ENV_DIR}
+  HOME=$BUILD_DIR . $BUILD_DIR/.profile.d/maven.sh
+
+  # like jvmcommon but without 'ulimit -u', which doesn't work on Travis
+  export JAVA_HOME="$BUILD_DIR/.jdk"
+  export LD_LIBRARY_PATH="$JAVA_HOME/jre/lib/amd64/server:$LD_LIBRARY_PATH"
+  export PATH="$BUILD_DIR/.heroku/bin:$JAVA_HOME/bin:$PATH"
+
+  capture ${BUILDPACK_HOME}/bin/test ${BUILD_DIR} ${ENV_DIR}
 }
 
 capture_test_compile()
@@ -41,8 +47,8 @@ test_test_compile() {
   createTestPom
 
   capture_test_compile
-  assertCaptured "Build was not successful" "BUILD SUCCESS"
   assertEquals "Expected captured exit code to be 0; was <${RETURN}>" "0" "${RETURN}"
+  assertCaptured "Build was not successful" "BUILD SUCCESS"
   assertTrue "mvn should be executable" "[ -x ${BUILD_DIR}/.maven/bin/mvn ]"
   assertTrue "mvn profile should exist" "[ -f ${BUILD_DIR}/.profile.d/maven.sh ]"
 
